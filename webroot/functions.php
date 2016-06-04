@@ -3,7 +3,7 @@
     {
         $.ajax({
             type: 'post',
-            url: '../ajax_search_functions.php',
+            url: 'ajax_search_functions.php',
             data: {
                 tag:val
             },
