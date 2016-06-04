@@ -1,0 +1,101 @@
+<form class="search_form" method="post"><div class="col-sm-offset-1 col-sm-3">
+        <div class="frmSearch">
+            <input type="text" onchange="fetch_select(this.value);" class="form-control" placeholder="Search tags" />
+        </div>
+    </div>
+</form>
+<div class="col-sm-7" >
+    <form method="post" action="">
+        <select class="form-control" onchange="window.location.href=this.options[this.selectedIndex].value" id="box">
+        </select>
+</div>
+
+</form>
+
+<div class="col-sm-12 text-center">
+    <div id="container">
+        <div id="slides">
+
+            <?php foreach($data['slide'] as $slide){ ?>
+                <div>
+                    <div class="col-sm-12 text-center"><a  href="/pages/view/<?=$slide['category_id']?>/<?=$slide['id']?>"><b><?=$slide['news_name']?></b></a></div>
+                    <div class="col-sm-12 text-center">
+                        <a  href="/pages/view/<?=$slide['category_id']?>/<?=$slide['id']?>"> <img src="<?=$slide['img_link']?>" width="780" height="280" alt="<?=$slide['news_name']?>"></a>
+                    </div>
+                </div>
+            <?php }?>
+
+        </div>
+        <a href="#" class="controls">Play</a>
+
+        <!-- Example slide count -->
+        <p class="current_slide"></p>
+    </div>
+
+</div>
+
+<div class="col-sm-12">
+    <div class="panel-group col-sm-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">
+                ТОП 5 КОММЕНТАТОРОВ
+            </div>
+            <div class="panel-body newsFive">
+                <table class="table">
+                    <?php $x = 0;
+                    for($i = 0; $i <= 4; ++$i){
+                        $x++;?>
+                        <tr>
+                            <td><?=$x?></td>
+                            <td><a href="/pages/user/<?=$data['top_commentators'][$i][0]['id']?>"><?=$data['top_commentators'][$i][0]['firstName']. ' '. $data['top_commentators'][$i][0]['lastName']?></a></td>
+                        </tr>
+                    <?php }?>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php foreach ($data['categories'] as $page_data) {
+    $id = $page_data['id'];
+    $id % 1 == 0 ? $style = "danger":null;
+    $id % 2 == 0 ? $style = "warning":null;
+    $id % 3 == 0 ? $style = "info":null;
+    $id % 4 == 0 ? $style = "success":null;
+    $id % 5 == 0 ? $style = "primary":null;
+    $id % 6 == 0 ? $style = "default":null;
+    ?>
+    <div class="panel-group col-sm-6">
+        <div class="panel panel-<?=$style?>">
+            <div class="panel-heading text-center">
+                <a class="h4" href="/pages/view/<?=$page_data['id']?>"><?=$page_data['category_name']?></a>
+            </div>
+            <div class="panel-body newsFive" >
+                <table class="table">
+                <?php foreach  ($data['lastFiveNews'] as $news){
+                    $i=0;
+                    foreach($news as $item){
+                        $i++;
+                    if($item['category_id']==$page_data['id'])
+                    {?>
+                        <tr>
+                            <td><?=$i?></td>
+                            <td><a  href="/pages/view/<?=$page_data['id']?>/<?=$item['id']?>"><?=$item['news_name']?></a></td>
+                        </tr>
+                   <? }
+                    }}
+                    if($page_data['category_name'] == 'АНАЛИТИКА'){
+                        $j = 0;
+                        foreach($data['lastFiveAnalytics'] as $analytic){
+                            $j++;?>
+                        <tr>
+                            <td><?=$j?></td>
+                            <td><a  href="/pages/view/<?=$page_data['id']?>/<?=$analytic['id']?>"><?=$analytic['news_name']?></a></td>
+                        </tr>
+                   <?php }
+                    }
+                    ?>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+</div>

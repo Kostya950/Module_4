@@ -1,0 +1,48 @@
+<h3>Edit  News</h3><br>
+<form method="post" action="">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name='news_name' value="<?=$data['page']['news_name']?>" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="content">Text</label>
+        <textarea name="content" rows=10; id="content" class="form-control"><?=$data['page']['content']?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="img_link">URL image</label>
+        <input type="text" id="img_link" name='img_link' value="<?=$data['page']['img_link']?>" class="form-control">
+    </div>
+    <b>Category:</b>
+    <select  name="category" class="form-control">
+        <?php foreach($data['categories'] as $category) {
+            if($data['page']['category_id']==$category['id']){
+            ?>
+            <option value="<?=$category['id']?>"><?=$category['category_name']?></option>
+        <?php } }?>
+        <option></option>
+        <?php foreach($data['categories'] as $category) {
+                ?>
+                <option value="<?=$category['id']?>"><?=$category['category_name']?></option>
+            <?php } ?>
+    </select><br>
+    <b>Tag:</b>
+    <select name="tag" class="form-control">
+
+        <?php foreach($data['tags'] as $category) {
+        if($data['page']['tag1_id']==$category['id']){
+            ?>
+            <option value="<?=$category['id']?>"><?=$category['tag_name']?></option>
+        <?php } }?>
+        <option></option>
+        <?php foreach($data['tags'] as $category) {
+            ?>
+            <option value="<?=$category['id']?>"><?=$category['tag_name']?></option>
+        <?php } ?>
+    </select>
+    <br>
+    <div class="form-group">
+        <label for="is_analytics">Is analytics?</label>
+        <input type="checkbox" name="is_analytics" id="is_analytics">
+    </div>
+    <input type="submit" class="btn btn-success" value="Edit">
+</form>

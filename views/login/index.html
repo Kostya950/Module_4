@@ -1,0 +1,23 @@
+<?php
+if(!Session::get('login')) { ?>
+    <h3>Login form</h3>
+<form method="post" action="" class="forms">
+    <div class="form-group">
+
+        <input type="text" id="login" name="login" class="form-control" placeholder="Login">
+    </div>
+    <div class="form-group">
+
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+    </div>
+    <input type="submit" class="btn btn-primary" value="Login">
+</form>
+<?php } else {?>
+
+<div class="form-group">
+    <h4>You have logged in like: <b><?=Session::get('login')?></b></h4>
+</div>
+<?php
+}
+?>
+

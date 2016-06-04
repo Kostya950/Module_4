@@ -1,0 +1,131 @@
+body {
+    padding-top:  50px;
+    color:#333;
+    background:#efefef url(../img/background.jpg) repeat top center;
+    position:relative;
+}
+
+.advertising {
+    position: fixed;
+}
+
+
+.starter-template {
+    padding: 40px 15px;
+}
+
+.forms {
+    width: 400px;
+    max-width: 400px;
+}
+
+.alert {
+    width: 400px;
+    max-width: 400px;
+}
+
+.search_form, .content {
+    margin-top: 20px;
+}
+
+.newsFive {
+    height: 300px;
+}
+
+.ad {
+    margin-top: 250px;
+}
+
+#container {
+    width:780px;
+    margin:40px auto;
+    position:relative;
+}
+
+#slides {
+    position:relative;
+}
+
+#slides .slidesContainer {
+    background:#fff;
+    border:8px solid #fff;
+    margin-left:-8px;
+    box-shadow: 0 2.5px 5px rgba(0,0,0,.1);
+}
+
+/*
+	Next/prev buttons
+*/
+
+#slides .slidesNext,#slides .slidesPrevious {
+    position:absolute;
+    top:134px;
+    left:-40px;
+    width:24px;
+    height:0;
+    padding-top:32px;
+    display:block;
+    z-index:101;
+    overflow:hidden;
+    background:url(../img/navigation-previous.png) no-repeat 0 0;
+}
+
+#slides .slidesNext {
+    left:798px;
+    background:url(../img/navigation-next.png) no-repeat 0 0;
+}
+
+/*
+	Pagination
+*/
+
+.slidesPagination {
+    margin:10px 0 0;
+    float:right;
+}
+
+.slidesPagination li {
+    float:left;
+    margin:0 1px;
+    list-style:none;
+}
+
+.slidesPagination li a {
+    display:block;
+    width:14px;
+    height:0;
+    padding-top:14px;
+    background-image:url(../img/pagination.png);
+    background-position:0 0;
+    overflow:hidden;
+}
+
+.slidesPagination li.slidesCurrent a {
+    background-position:0 -14px;
+}
+
+.current_slide {
+    font:bold 10px/1.33 sans-serif;
+    float:left;
+    margin-top:12px;
+}
+
+.controls {
+    display:block;
+    margin-top:12px;
+    float:left;
+    color:#333;
+    font:bold 10px/1.33 sans-serif;
+    margin-right:10px;
+}
+
+.ad_part {
+    margin-top: 20px;
+    border: 1px solid skyblue;
+}
+
+.adv:hover{
+    font-weight:bold;
+    color:saddlebrown;
+    font-size: 20px;
+}

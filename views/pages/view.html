@@ -1,0 +1,112 @@
+<?php
+$id = $data['category'][0]['id'];
+$id % 1 == 0 ? $style = "danger":null;
+$id % 2 == 0 ? $style = "warning":null;
+$id % 3 == 0 ? $style = "info":null;
+$id % 4 == 0 ? $style = "success":null;
+$id % 5 == 0 ? $style = "primary":null;
+$id % 6 == 0 ? $style = "default":null;
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+$p = new Pagination(array(
+    'itemsCount' => $data['count'][0]['cnt'],
+    'itemsPerPage' => 5,
+    'currentPage' => $page
+));
+
+if(Session::get('login')==''&& $data['news_one'][0]['is_analytics']==1){
+    $content = mb_substr($data['news_one'][0]['content'], 0, 100). ' <b>...</b>';
+} else{
+    $content = $data['news_one'][0]['content'];
+}
+
+?>
+    <div class="panel panel-<?=$style?>">
+        <div class="panel-heading text-center"><span class="h3"><?=$data['category'][0]['category_name']?></span> </div>
+            <div class="panel-body">
+                <?php if($data['param_1']==1 AND $data['param_2']!=2){?>
+    <table class="table">
+                <?php foreach ($data['news'] as $item){?>
+            <tr>
+                <td><img class="img-rounded img_size" width="100" height="75"  src="<?=$item['img_link']?>">
+                </td>
+                <td style="vertical-align: middle;"><b class="h4"><a href="/pages/view/<?=$data['category'][0]['id']?>/<?=$item['id']?>"><?=$item['news_name']?></b></a></td>
+            </tr>
+<?php } ?>
+    </table>
+                    </div>
+                    </div>
+                    <?php if(!$data['params']>0){
+                        foreach ($p->buttons as $button) :
+                            if ($button->isActive) : ?>
+                                <a href = '?page=<?=$button->page?>'><?=$button->text?></a>
+                            <?php else : ?>
+                                <span style="color:#555555"><?=$button->text?></span>
+                            <?php endif;
+                        endforeach;} ?>
+
+               <?php }
+                if($data['param_2']==2){?>
+                    <table class="table">
+                    <tr>
+                        <td><img class="img-rounded img_size" width="300" height="220" src="<?=$data['news_one'][0]['img_link']?>">
+                        </td>
+                        <td>
+                            <h3 class="text-primary"><?=$data['news_one'][0]['news_name']?></h3><br>
+                            <div style="font-size: 15px; text-align: justify;"><?=$content?><br>
+                                <div class="text-muted text-right"><?=$data['news_one'][0]['date']?></div>
+                            </div>
+                        </td>
+                    </tr>
+                        <tr class="text-muted">
+                            <td>Сйчас смотрят: <br>
+                                Просмотров всего: <?=$data['news_one'][0]['numb_readers']?></td>
+                            <td>
+                                Теги:<?php foreach ($data['tags'] as $tag) {?>
+                                    <a href="/pages/tags/<?=$tag['id']?>">@<?=$tag['tag_name']."  "." ";}?></a>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    </div>
+
+                <?php if(Session::get('login') != '') {?>
+
+                            <form method="post">
+                                <input type="hidden" name="login" value="<?=Session::get('login')?>">
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                            </div>
+                                <div class="text-right"> <input type="submit" class="btn btn-primary" value="Send"></div>
+                            </form>
+
+                    <?}
+
+//var_dump($_POST);
+                    if(isset($data['comments'][0]['firstName'])){
+                        foreach($data['comments']as $comment){?>
+                        <div class="panel panel-default">
+                        <div class="panel-heading"><a href="/pages/user/<?=$comment['user_id']?>"> <?=$comment['firstName'] ." ". $comment['lastName'] ?></a></div>
+                            <div class="panel-body">
+                                <?=$comment['comment']?>
+                                <div class="text-left text-muted"><?=$comment['date']?></div>
+                                <form method="post">
+                                <div class="text-right text-muted">
+                                    <input type="hidden" name="comment_id" value="<?=$comment['com_id']?>">
+                                    <input type="hidden" name="likes" value="<?=$comment['likes']?>">
+                                    <input type="hidden" name="unlikes" value="<?=$comment['unlikes']?>">
+                                <button type="submit" name="like" class="glyphicon glyphicon-thumbs-up likes"></button> <?=$comment['likes']?>
+                                <button type="submit" name="unlike" class="glyphicon glyphicon-thumbs-down likes"></button> <?=$comment['unlikes']?>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    <?php }
+                    }
+                }?>
+
+
+
+

@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title><?=Config::get('site_name')?></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+        integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+          integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+  </script>
+
+  <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="/js/slides.js"></script>
+  <script>
+  // setTimeout(function() { prompt('Вы хотите подписаться на разсылку? Введите Ваш E-mail') }, 15000);
+    /*
+     Get the curent slide
+     */
+    function currentSlide( current ) {
+      $(".current_slide").text(current + " of " + $("#slides").slides("status","total") );
+    }
+    $(function(){
+      /*
+       Initialize SlidesJS
+       */
+      $("#slides").slides({
+        navigateEnd: function( current ) {
+          currentSlide( current );
+        },
+        loaded: function(){
+          currentSlide( 1 );
+        }
+      });
+
+      /*
+       Play/stop button
+       */
+      $(".controls").click(function(e) {
+        e.preventDefault();
+
+        // Example status method usage
+        var slidesStatus = $("#slides").slides("status","state");
+
+        if (!slidesStatus || slidesStatus === "stopped") {
+
+          // Example play method usage
+          $("#slides").slides("play");
+
+          // Change text
+          $(this).text("Stop");
+        } else {
+
+          // Example stop method usage
+          $("#slides").slides("stop");
+
+          // Change text
+          $(this).text("Play");
+        }
+      });
+    });
+  </script>
+  <?php include "functions.php"; ?>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><?=Config::get('site_name')?></a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li <?php if(App::getRouter()->getController() =='pages') {?>class="active" <?php } ?>> <a href="/pages/">Pages</a></li>
+          <li <?php if(App::getRouter()->getController() =='search') {?>class="active" <?php } ?>> <a href="/search/">Search</a></li>
+
+          <?php if(Session::get('role')=='admin'){?>
+          <li <?php if(App::getRouter()->getController()=='administration'){?> class='active'<?php } ?>><a href="/admin/">Administration section</a> </li>
+          <?php }?>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li <?php if(App::getRouter()->getController() =='registration') {?>class="active" <?php } ?>> <a href="/registration/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li <?php if(App::getRouter()->getController() =='login') {?>class="active" <?php } ?>><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="/admin/users/logout">Logout <span class="glyphicon glyphicon-log-out"></span></a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="col-sm-12 content">
+<div class="col-sm-2 ad" style="border: 1px solid grey">
+
+    <a href="#"> <div id="ad" class="ad_part">
+        Телефон: iPhone<br>
+        Цена: <span class="adv"onmouseover="$('.price5').text('450$')" onmouseout="$('.price5').html('500$')"><span class="price5">500$</span><br>
+          Продавец: Aлло
+      </div></a>
+  <a href="#"><div id="ad" class="ad_part">
+      Телефон: Samsung <br>
+      Цена: <span class="adv"onmouseover="$('.price6').text('720$')" onmouseout="$('.price6').html('800$')"><span class="price6">800$</span><br>
+          Продавец: Комфи
+    </div></a>
+  <a href="#"><div id="ad" class="ad_part">
+      Телефон: iPhone<br>
+      Цена: <span class="adv" onmouseover="$('.price7').text('450$')" onmouseout="$('.price7').html('500$')"><span class="price7">500$</span><br>
+          Продавец: Aлло
+    </div></a>
+  <a href="#"><div id="ad" class="ad_part">
+      Телефон: iPhone<br>
+      Цена: <span class="adv"onmouseover="$('.price8').text('450$')" onmouseout="$('.price8').html('500$')"><span class="price8">500$</span><br>
+          Продавец: Aлло
+    </div></a>
+</div>
+ <div class="col-sm-8">
+   <?=$data['content']?>
+ </div>
+  <div class="col-sm-2 ad" style="border: 1px solid grey">
+
+      <a href="#"> <div id="ad" class="ad_part">
+          Телефон: iPhone<br>
+          Цена: <span class="adv"onmouseover="$('.price5').text('450$')" onmouseout="$('.price5').html('500$')"><span class="price5">500$</span><br>
+          Продавец: Aлло
+        </div></a>
+      <a href="#"><div id="ad" class="ad_part">
+          Телефон: Samsung <br>
+          Цена: <span class="adv"onmouseover="$('.price6').text('720$')" onmouseout="$('.price6').html('800$')"><span class="price6">800$</span><br>
+          Продавец: Комфи
+        </div></a>
+      <a href="#"><div id="ad" class="ad_part">
+          Телефон: iPhone<br>
+          Цена: <span class="adv" onmouseover="$('.price7').text('450$')" onmouseout="$('.price7').html('500$')"><span class="price7">500$</span><br>
+          Продавец: Aлло
+        </div></a>
+      <a href="#"><div id="ad" class="ad_part">
+          Телефон: iPhone<br>
+          Цена: <span class="adv"onmouseover="$('.price8').text('450$')" onmouseout="$('.price8').html('500$')"><span class="price8">500$</span><br>
+          Продавец: Aлло
+        </div></a>
+
+  </div>
+
+  </div>
+</body>
+</html>
+
+
